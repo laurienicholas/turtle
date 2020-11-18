@@ -1,5 +1,4 @@
 import { IosKeychain } from '@expo/xdl';
-
 import { IContext } from 'turtle/builders/ios/context';
 import * as fileUtils from 'turtle/builders/utils/file';
 import logger from 'turtle/logger';
@@ -51,12 +50,21 @@ export async function importCert(
 ) {
   const l = logger.child({ buildPhase: 'importing certificate into keychain' });
   try {
+    console.log(JSON.stringify(ctx));
+    console.log(JSON.stringify(keychainPath));
+    console.log(JSON.stringify(certP12));
+    console.log(JSON.stringify(certPassword));
     l.info('importing distribution certificate into keychain...');
     const { tempCertPath: certPath } = ctx;
     await fileUtils.writeBase64ToBinaryFile(certPath, certP12);
-    await IosKeychain.importIntoKeychain({ keychainPath, certPath, certPassword });
+    await IosKeychain.importIntoKeychain({
+      keychainPath,
+      certPath,
+      certPassword,
+    });
     l.info('done importing distribution certificate into keychain');
   } catch (err) {
+    console.log(err);
     l.error({ err }, 'unable to import distribution certificate into keychain');
     throw err;
   }

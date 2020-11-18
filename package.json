@@ -30,11 +30,6 @@
     "release:update:turtle-cli-example": "./scripts/updateTurtleCliExampleRepo.sh",
     "docker:build-and-push:android-base-image": "./scripts/android/buildAndPushAndroidBaseImage.sh"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.ts": [
       "yarn lint:fix",
